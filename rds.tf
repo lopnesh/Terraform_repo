@@ -5,7 +5,7 @@ resource "aws_db_instance" "default" {
   instance_class       = "db.t2.micro"
   name                 = "wp"
   username             = "admin"
-  password             = "wpadmin"
+  password             = "q1q1q1q1"
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
   publicly_accessible  = true

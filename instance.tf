@@ -14,11 +14,23 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"]
 }
 
+resource "aws_security_group" "allow_ssh" {
+  name = "allow_ssh"
+  vpc_id = "vpc-321a8358"
+  description = "Allow ssh connections on port 22"
+  ingress {
+      from_port = 22
+      to_port = 22
+      protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-
-   key_name = "server"
+  security_groups = ["${aws_security_group.allow_ssh.name}"]
+  key_name = "server"
 
   tags = {
     Name = "HelloWorld"
